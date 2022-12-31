@@ -1,0 +1,88 @@
+diff --git a/node_modules/react-native-country-picker-modal/lib/CountryList.js b/node_modules/react-native-country-picker-modal/lib/CountryList.js
+index 8816018..47b8781 100644
+--- a/node_modules/react-native-country-picker-modal/lib/CountryList.js
++++ b/node_modules/react-native-country-picker-modal/lib/CountryList.js
+@@ -83,6 +83,7 @@ const ItemSeparatorComponent = () => {
+ const { height } = Dimensions.get('window');
+ export const CountryList = (props) => {
+     const { data, withAlphaFilter, withEmoji, withFlag, withCallingCode, withCurrency, onSelect, filter, flatListProps, filterFocus, } = props;
++    console.log(data)
+     const flatListRef = useRef(null);
+     const [letter, setLetter] = useState('');
+     const { itemHeight, backgroundColor } = useTheme();
+diff --git a/node_modules/react-native-country-picker-modal/lib/CountryPicker.js b/node_modules/react-native-country-picker-modal/lib/CountryPicker.js
+index c4ba18e..236eed7 100644
+--- a/node_modules/react-native-country-picker-modal/lib/CountryPicker.js
++++ b/node_modules/react-native-country-picker-modal/lib/CountryPicker.js
+@@ -55,9 +55,24 @@ export const CountryPicker = (props) => {
+         containerButtonStyle,
+         placeholder,
+     };
++
++    function prioritizeCountry(arr, old_index, new_index) {
++        if (new_index >= arr.length) {
++            var k = new_index - arr.length + 1;
++            while (k--) {
++                arr.push(undefined);
++            }
++        }
++        arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
++        setCountries(arr); 
++    };
++
+     useEffect(() => {
+         getCountriesAsync(withEmoji ? FlagType.EMOJI : FlagType.FLAT, translation, region, subregion, countryCodes, excludeCountries, preferredCountries, withAlphaFilter)
+-            .then(setCountries)
++            .then((res) => {
++                const UKindex = res.findIndex((item) => item.cca2 === 'GB');
++                prioritizeCountry(res, UKindex, 0)
++            })
+             .catch(console.warn);
+     }, [translation, withEmoji]);
+     return (React.createElement(React.Fragment, null,
+diff --git a/node_modules/react-native-country-picker-modal/lib/CountryText.js b/node_modules/react-native-country-picker-modal/lib/CountryText.js
+index 33a2c43..5534074 100644
+--- a/node_modules/react-native-country-picker-modal/lib/CountryText.js
++++ b/node_modules/react-native-country-picker-modal/lib/CountryText.js
+@@ -3,6 +3,6 @@ import { Text } from 'react-native';
+ import { useTheme } from './CountryTheme';
+ export const CountryText = (props) => {
+     const { fontFamily, fontSize, onBackgroundTextColor } = useTheme();
+-    return (React.createElement(Text, Object.assign({}, props, { style: { fontFamily, fontSize, color: onBackgroundTextColor } })));
++    return (React.createElement(Text, Object.assign({}, props, { style: { fontFamily: "Jost-Regular", fontSize, color: onBackgroundTextColor } })));
+ };
+ //# sourceMappingURL=CountryText.js.map
+\ No newline at end of file
+diff --git a/node_modules/react-native-country-picker-modal/lib/FlagButton.js b/node_modules/react-native-country-picker-modal/lib/FlagButton.js
+index 7ad3e7b..9bcadb8 100644
+--- a/node_modules/react-native-country-picker-modal/lib/FlagButton.js
++++ b/node_modules/react-native-country-picker-modal/lib/FlagButton.js
+@@ -1,5 +1,5 @@
+ import React, { useState, useEffect, memo } from 'react';
+-import { TouchableOpacity, StyleSheet, View, } from 'react-native';
++import { TouchableOpacity, StyleSheet, View, Text } from 'react-native';
+ import { Flag } from './Flag';
+ import { useContext } from './CountryContext';
+ import { CountryText } from './CountryText';
+@@ -21,6 +21,12 @@ const styles = StyleSheet.create({
+         alignItems: 'center',
+     },
+     something: { fontSize: 16 },
++    textPlaceholder: {
++        color: '#000000',
++        fontSize: 15,
++        fontWeight: "500",
++        fontFamily: "Jost-Regular",
++    }
+ });
+ const FlagText = (props) => (React.createElement(CountryText, Object.assign({}, props, { style: styles.something })));
+ const FlagWithSomething = memo(({ countryCode, withEmoji, withCountryNameButton, withCurrencyButton, withCallingCodeButton, withFlagButton, flagSize, placeholder, }) => {
+@@ -44,7 +50,7 @@ const FlagWithSomething = memo(({ countryCode, withEmoji, withCountryNameButton,
+         withCallingCodeButton,
+     ]);
+     return (React.createElement(View, { style: styles.flagWithSomethingContainer },
+-        countryCode ? (React.createElement(Flag, Object.assign({}, { withEmoji, countryCode, withFlagButton, flagSize: flagSize }))) : (React.createElement(FlagText, null, placeholder)),
++        countryCode ? (React.createElement(Flag, Object.assign({}, { withEmoji, countryCode, withFlagButton, flagSize: flagSize }))) : <Text style={styles.textPlaceholder}>{placeholder}</Text>,
+         withCountryNameButton && countryName ? (React.createElement(FlagText, null, countryName + ' ')) : null,
+         withCurrencyButton && currency ? (React.createElement(FlagText, null, `(${currency}) `)) : null,
+         withCallingCodeButton && callingCode ? (React.createElement(FlagText, null, `+${callingCode}`)) : null));

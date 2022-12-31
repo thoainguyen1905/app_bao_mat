@@ -1,0 +1,59 @@
+import {StyleSheet} from "react-native";
+import {Colors, Shadow, Spacing} from "@theme";
+
+export const styles = StyleSheet.create({
+    container:{
+        flex:1,
+        backgroundColor:Colors.background
+    },
+    viewCategory:{
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'flex-start',
+        backgroundColor:Colors.white,
+        ...Shadow.normal,
+        height:Spacing.height72,
+        paddingHorizontal:Spacing.width16,
+        marginHorizontal:Spacing.width8
+    },
+    viewCategorySelect:{
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'flex-start',
+        backgroundColor:Colors.white,
+        borderBottomColor:Colors.colorMain,borderBottomWidth:1,
+        height:Spacing.height72,
+        padding:Spacing.width16,
+        marginHorizontal:Spacing.width8
+    },
+    iconImage:{
+        width:Spacing.width50,
+        height:Spacing.width50,
+        marginRight:Spacing.width16
+    },
+    viewCategoryChild:{
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'space-between',
+        backgroundColor:Colors.white,
+        ...Shadow.normal,
+        height:Spacing.height50,
+        paddingHorizontal:Spacing.width16,
+        marginVertical:Spacing.width8
+    },
+    viewCategorySelectChild:{
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'flex-start',
+        backgroundColor:Colors.white,
+        borderColor:Colors.colorMain,borderWidth:1,
+        height:Spacing.height72,
+        padding:Spacing.width16,
+        marginHorizontal:Spacing.width8
+    },
+    iconImageChild:{
+        width:Spacing.width40,
+        height:Spacing.width40,
+        marginRight:Spacing.width16
+    }
+})
