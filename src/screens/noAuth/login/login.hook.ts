@@ -36,9 +36,9 @@ export function useModel(props: any) {
         values,
         res => {
           setLoading(false);
-          console.log(res);
+          console.log({res});
 
-          if (res.otp === null) {
+          if (res.isVerify === 0) {
             navigate(SCREEN_ROUTE.OTP);
           }
           api.setToken(res?.token).then(),

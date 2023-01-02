@@ -24,6 +24,7 @@ export const API_URL = {
   resetPassword: '/user/reset-password',
   changePassword: '/user/change-password',
   user: '/user/me',
+  otp: 'user/otp_verify_account',
   //address
   address: '/address',
   cart: '/cart',

@@ -128,6 +128,12 @@ const NavigationApp = React.forwardRef((props, ref: any) => {
           component={AppWebView}
           options={{headerShown: false}}
         />
+
+        <Stack.Screen
+          name={SCREEN_ROUTE.OTP}
+          component={OtpVerify}
+          options={{headerShown: false}}
+        />
         {/*  auth*/}
         {token === '' && (
           <Stack.Screen
@@ -144,13 +150,7 @@ const NavigationApp = React.forwardRef((props, ref: any) => {
             options={{headerShown: false}}
           />
         )}
-        {token === '' && (
-          <Stack.Screen
-            name={SCREEN_ROUTE.OTP}
-            component={OtpVerify}
-            options={{headerShown: false}}
-          />
-        )}
+
         {token === '' && (
           <Stack.Screen
             name={SCREEN_ROUTE.FORGOT}

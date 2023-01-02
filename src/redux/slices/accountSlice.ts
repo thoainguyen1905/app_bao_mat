@@ -5,8 +5,8 @@ import {accountInterface} from '../types';
 const initialState = {
   token: '',
   userProfile: {},
-  address:[],
-  addressSelect:{}
+  address: [],
+  addressSelect: {},
 } as accountInterface;
 
 const accountSlice = createSlice({
@@ -23,15 +23,20 @@ const accountSlice = createSlice({
       state.address = action.payload;
     },
     setAddressSelect(state, action) {
-      console.log({action})
       state.addressSelect = action.payload;
     },
     logoutUser(state) {
-      state.token =''
+      state.token = '';
       state.userProfile = {};
     },
   },
 });
 
-export const {setAccountToken, setUserProfile,logoutUser,setAddressUserProfile,setAddressSelect} = accountSlice.actions;
+export const {
+  setAccountToken,
+  setUserProfile,
+  logoutUser,
+  setAddressUserProfile,
+  setAddressSelect,
+} = accountSlice.actions;
 export default accountSlice.reducer;

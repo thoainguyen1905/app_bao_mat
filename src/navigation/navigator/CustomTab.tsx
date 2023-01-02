@@ -4,12 +4,17 @@ import {BottomTabBarProps} from '@react-navigation/bottom-tabs/lib/typescript/sr
 import {getStatusOfBottomTab} from '@redux';
 import {Spacing, Text, useTheme} from '@theme';
 import React, {memo, useEffect, useRef} from 'react';
-import {Animated, InteractionManager, TouchableWithoutFeedback, View} from 'react-native';
-import {useSelector} from "react-redux";
+import {
+  Animated,
+  InteractionManager,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
+import {useSelector} from 'react-redux';
 import {styles} from './styles';
-import {getCountMessage} from "../../redux/selector/messageSlector";
+import {getCountMessage} from '../../redux/selector/messageSlector';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-const SourceImage = (props: {label?: string; isFocused: boolean;}) => {
+const SourceImage = (props: {label?: string; isFocused: boolean}) => {
   const {label, isFocused} = props;
   const {themeColor} = useTheme();
 
@@ -86,23 +91,23 @@ export const CustomTabBar = memo(function CustomTabBar({
 }: BottomTabBarProps) {
   const arrayLable = ['Home', 'Canvas', '', 'Discover', 'Setting'];
   const {themeColor} = useTheme();
-  const statusOfBottomTab = useSelector(getStatusOfBottomTab)
+  const statusOfBottomTab = useSelector(getStatusOfBottomTab);
 
   const refHeight = useRef(50);
   const refAnimated = useRef(new Animated.Value(0));
-  const countMessage=useSelector(getCountMessage)
+  const countMessage = useSelector(getCountMessage);
 
   const translateY = refAnimated.current.interpolate({
     inputRange: [0, refHeight.current],
     outputRange: [0, refHeight.current],
     extrapolate: 'clamp',
-  })
+  });
 
   const opacity = translateY.interpolate({
-    inputRange: [0, refHeight.current/2 ,refHeight.current],
+    inputRange: [0, refHeight.current / 2, refHeight.current],
     outputRange: [1, 0.8, 0.5],
     extrapolate: 'clamp',
-  })
+  });
 
   return (
     <Animated.View
@@ -114,9 +119,9 @@ export const CustomTabBar = memo(function CustomTabBar({
           //   translateY,
           // }],
           // opacity
-        }
+        },
       ]}
-      onLayout={(e) => {
+      onLayout={e => {
         refHeight.current = e.nativeEvent.layout.height;
       }}
     >
@@ -127,8 +132,8 @@ export const CustomTabBar = memo(function CustomTabBar({
             options.tabBarLabel !== undefined
               ? options.tabBarLabel
               : options.title !== undefined
-                ? options.title
-                : route.name;
+              ? options.title
+              : route.name;
 
           const isFocused = state.index === index;
 
@@ -145,7 +150,6 @@ export const CustomTabBar = memo(function CustomTabBar({
               }
             });
           };
-            console.log(countMessage)
           return (
             <TouchableWithoutFeedback
               key={'tab-' + index.toString()}
@@ -154,14 +158,18 @@ export const CustomTabBar = memo(function CustomTabBar({
               testID={options.tabBarTestID}
               onPress={onPress}
             >
-
               <View style={styles.bottomBarIcon}>
-                  {index===2 && (
-                      <View style={styles.viewTabMessage}>
-                          <Text  variant={'text'}
-                                 numberOfLines={1}
-                                 style={styles.txtTabMessage}>{countMessage}</Text></View>
-                  )}
+                {index === 2 && (
+                  <View style={styles.viewTabMessage}>
+                    <Text
+                      variant={'text'}
+                      numberOfLines={1}
+                      style={styles.txtTabMessage}
+                    >
+                      {countMessage}
+                    </Text>
+                  </View>
+                )}
                 {options &&
                   options.tabBarIcon &&
                   options.tabBarIcon({
@@ -179,9 +187,7 @@ export const CustomTabBar = memo(function CustomTabBar({
                     {arrayLable[index]}
                   </Text>
                 )}
-
               </View>
-
             </TouchableWithoutFeedback>
           );
         })}

@@ -1,26 +1,26 @@
-import {Closedown, Dropdown, Spacing} from "@assets";
-import React, { useState } from "react";
-import {StyleProp, StyleSheet, Text, View, ViewStyle} from "react-native";
-import SelectDropdown from "react-native-select-dropdown";
-import {Colors, FontSize} from "@theme";
-import {AppText} from "./AppText";
-type SelectDropType={
-  ref?:any,
-  data?:any,
-  defaultValue?:any,
-  titleSelect?:any,
-  placeholder?:any,
-  num ?:any,
-  maxWidth ?:any,
-  icon ?:any,
-  titleTxt?:any,
-  width?:any,
-  onSelect:any,
-  keyName?:string,
-  style?:StyleProp<ViewStyle>,
-  styleContainer?:StyleProp<ViewStyle>,
-}
-export const SelectDrop = (props:SelectDropType) => {
+import {Closedown, Dropdown, Spacing} from '@assets';
+import React, {useState} from 'react';
+import {StyleProp, StyleSheet, Text, View, ViewStyle} from 'react-native';
+import SelectDropdown from 'react-native-select-dropdown';
+import {Colors, FontSize} from '@theme';
+import {AppText} from './AppText';
+type SelectDropType = {
+  ref?: any;
+  data?: any;
+  defaultValue?: any;
+  titleSelect?: any;
+  placeholder?: any;
+  num?: any;
+  maxWidth?: any;
+  icon?: any;
+  titleTxt?: any;
+  width?: any;
+  onSelect: any;
+  keyName?: string;
+  style?: StyleProp<ViewStyle>;
+  styleContainer?: StyleProp<ViewStyle>;
+};
+export const SelectDrop = (props: SelectDropType) => {
   const {
     ref,
     data,
@@ -31,20 +31,23 @@ export const SelectDrop = (props:SelectDropType) => {
     maxWidth = undefined,
     icon = false,
     titleTxt,
-      keyName,
-      style,
-    styleContainer
+    keyName,
+    style,
+    styleContainer,
   } = props;
 
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <View style={[{ width: props.width },styleContainer]}>
+    <View style={[{width: props.width}, styleContainer]}>
       {titleTxt && (
         <AppText
           style={[
-
-            {  fontSize:FontSize.Font13,color:Colors.black, marginBottom: Spacing.height8 },
+            {
+              fontSize: FontSize.Font13,
+              color: Colors.black,
+              marginBottom: Spacing.height8,
+            },
           ]}
         >
           {titleTxt}
@@ -61,8 +64,8 @@ export const SelectDrop = (props:SelectDropType) => {
         renderCustomizedButtonChild={(selectedItem, index) => {
           setSelectedIndex(index);
           return (
-            <View style={[styles.dropdown3BtnChildStyle,style]}>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View style={[styles.dropdown3BtnChildStyle, style]}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 {titleSelect && !selectedItem ? (
                   <View style={styles.selectLine}>
                     <Text style={styles.dropdown3BtnTxt}>{titleSelect}</Text>
@@ -70,7 +73,13 @@ export const SelectDrop = (props:SelectDropType) => {
                 ) : (
                   <View style={styles.selectLine}>
                     <Text
-                      style={[styles.dropdown3BtnTxt, { maxWidth: maxWidth ,color: selectedItem?Colors.black:Colors.gray}]}
+                      style={[
+                        styles.dropdown3BtnTxt,
+                        {
+                          maxWidth: maxWidth,
+                          color: selectedItem ? Colors.black : Colors.gray,
+                        },
+                      ]}
                       numberOfLines={num}
                     >
                       {selectedItem ? selectedItem[`${keyName}`] : placeholder}
@@ -79,18 +88,13 @@ export const SelectDrop = (props:SelectDropType) => {
                 )}
               </View>
 
-              {!isOpen ? (
-                <Dropdown />
-              ) : (
-                <Closedown />
-              )}
+              {!isOpen ? <Dropdown /> : <Closedown />}
             </View>
           );
         }}
         dropdownStyle={styles.dropdown3DropdownStyle}
         rowStyle={styles.dropdown3RowStyle}
         renderCustomizedRowChild={(item, index) => {
-          console.log('item:',item,item[`${keyName}`],keyName)
           return (
             <View style={styles.dropdown3RowChildStyle}>
               <Text
@@ -111,12 +115,12 @@ export const SelectDrop = (props:SelectDropType) => {
         buttonTextAfterSelection={(selectedItem, index) => {
           // text represented after item is selected
           // if data array is an array of objects then return selectedItem.property to render after item is selected
-          return selectedItem
+          return selectedItem;
         }}
         rowTextForSelection={(item, index) => {
           // text represented for each item in dropdown
           // if data array is an array of objects then return item.property to represent item in dropdown
-          return item
+          return item;
         }}
       />
     </View>
@@ -125,64 +129,64 @@ export const SelectDrop = (props:SelectDropType) => {
 
 const styles = StyleSheet.create({
   selectLine: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   dropdown3BtnStyle: {
-    width: "100%",
+    width: '100%',
     height: Spacing.height52,
     paddingHorizontal: 0,
     borderRadius: 8,
-    borderColor: "#444",
+    borderColor: '#444',
   },
   dropdown3BtnChildStyle: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingLeft: Spacing.width8,
     paddingRight: Spacing.width8,
-    backgroundColor: "#F6F6F6",
+    backgroundColor: '#F6F6F6',
   },
   dropdown3BtnTxt: {
-    fontSize:FontSize.Font14,
-    color: "rgba(30, 32, 41, 1)",
+    fontSize: FontSize.Font14,
+    color: 'rgba(30, 32, 41, 1)',
   },
   dropdown3DropdownStyle: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "#EFEFEF",
+    borderColor: '#EFEFEF',
   },
   dropdown3RowStyle: {
-    backgroundColor: "white",
-    borderBottomColor: "white",
+    backgroundColor: 'white',
+    borderBottomColor: 'white',
     height: 50,
   },
   dropdown3RowChildStyle: {
     flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    backgroundColor: "#FFFFFF",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    backgroundColor: '#FFFFFF',
     // borderRadius: 4,
   },
-  dropdownRowImage: { width: 45, height: 45, resizeMode: "cover" },
+  dropdownRowImage: {width: 45, height: 45, resizeMode: 'cover'},
   dropdown3RowTxt: {
-    fontSize:FontSize.Font18,
-    textAlign: "center",
+    fontSize: FontSize.Font18,
+    textAlign: 'center',
     marginLeft: Spacing.width15,
     color: Colors.black,
   },
   dropdown3RowTxtSelected: {
-    fontSize:FontSize.Font18,
-    textAlign: "center",
+    fontSize: FontSize.Font18,
+    textAlign: 'center',
     marginLeft: Spacing.width15,
-    color: "#000000",
+    color: '#000000',
   },
   dropdown3RowTxtDisable: {
-    fontSize:FontSize.Font18,
-    textAlign: "center",
+    fontSize: FontSize.Font18,
+    textAlign: 'center',
     marginLeft: Spacing.width15,
     color: Colors.gray,
   },
