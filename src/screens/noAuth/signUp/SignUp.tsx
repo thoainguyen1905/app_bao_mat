@@ -107,9 +107,9 @@ export const SignUp = (props: any) => {
           <AppButton
             label={t('sigUp')}
             onPress={() => {
-              //   handleSubmit();
+              handleSubmit();
               // dispatch(setAccountToken('adsadajsd12281'))
-              navigate(SCREEN_ROUTE.OTP);
+              // navigate(SCREEN_ROUTE.OTP);
             }}
             style={styles.btnSigUp}
           />

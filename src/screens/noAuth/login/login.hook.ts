@@ -38,9 +38,6 @@ export function useModel(props: any) {
           setLoading(false);
           console.log({res});
 
-          if (res.isVerify === 0) {
-            navigate(SCREEN_ROUTE.OTP);
-          }
           api.setToken(res?.token).then(),
             setTimeout(() => {
               Promise.all([
@@ -55,11 +52,14 @@ export function useModel(props: any) {
                 color: Colors.white,
               });
             }, 300);
+          if (res.isVerify === 0) {
+            navigate(SCREEN_ROUTE.OTP);
+          }
         },
         () => {
           setLoading(false);
           showMessage({
-            message: t('errorLogin'),
+            message: t('Đăng nhập thất bại'),
             type: 'info',
             backgroundColor: Colors.error,
             color: Colors.white,
